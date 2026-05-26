@@ -54,15 +54,15 @@ sequenceDiagram
 
 ### 步骤一：给每个 sequenceDiagram 加 init 配置
 
-在 ` ```mermaid ` 之后、`sequenceDiagram` 之前插入：
+在 Mermaid 代码块第一行、`sequenceDiagram` 之前插入：
 
-```markdown
 ```mermaid
 %%{init: {"sequence": {"useMaxWidth": true}}}%%
 sequenceDiagram
     participant A as ...
 ```
-```
+
+实际写的时候注意：这一行必须放在 Mermaid 代码块内，```mermaid 和 sequenceDiagram 之间。
 
 ### 步骤二：缩短参与者名称（重要）
 
@@ -123,7 +123,7 @@ sequenceDiagram
 
 **拆后效果**：
 
-```markdown
+`````markdown
 ### 注册
 ```mermaid
 %%{init: {"sequence": {"useMaxWidth": true}}}%%
@@ -135,9 +135,9 @@ sequenceDiagram
     B->>DB: 写入用户
     DB-->>F: 注册成功
 ```
-```
+`````
 
-```markdown
+`````markdown
 ### 登录
 ```mermaid
 %%{init: {"sequence": {"useMaxWidth": true}}}%%
@@ -149,7 +149,7 @@ sequenceDiagram
     B->>DB: 查用户
     DB-->>F: 返回 Token
 ```
-```
+`````
 
 每张图控制在 **4-5 个参与者、8-12 步**之内，PDF 打印时即使缩放也清晰可读。
 
