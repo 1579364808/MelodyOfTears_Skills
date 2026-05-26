@@ -10,3 +10,4 @@ OpenCode AI agent skills collection.
 | **project-based-learning-coach** | Generates structured, chapter-based learning paths from projects |
 | **python-vs-java** | Explains Python syntax by comparing with Java equivalents |
 | **mermaid-pdf-print** | Fixes Mermaid diagrams being truncated/cut off when printing Markdown to PDF. Uses `useMaxWidth: true` for responsive SVG scaling to fit page width. |
+| **markdown-nested-fence** | Prevents markdown syntax errors caused by nested fenced code blocks with same-length backtick fences. Teaches fence length increment, tilde fences, indented blocks, and HTML entity encoding. |
