@@ -178,13 +178,7 @@ sequenceDiagram
 &amp;#96;&amp;#96;&amp;#96;
 ```
 
-渲染效果：
-
-&#96;&#96;&#96;mermaid
-%%{init: {"sequence": {"useMaxWidth": true}}}%%
-sequenceDiagram
-    participant A as 客户端
-&#96;&#96;&#96;
+HTML 渲染时 `&amp;#96;` 会解码为反引号，最终读者看到的是 ````mermaid` ... ```` 代码块内容。适合在需要精确展示 fence 语法的场景下使用。
 
 ## 其他常见踩坑点
 
