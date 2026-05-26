@@ -9,3 +9,4 @@ OpenCode AI agent skills collection.
 | **python-notes-writer** | Incrementally writes Python knowledge points to local markdown notes |
 | **project-based-learning-coach** | Generates structured, chapter-based learning paths from projects |
 | **python-vs-java** | Explains Python syntax by comparing with Java equivalents |
+| **mermaid-pdf-print** | Fixes Mermaid diagrams being truncated/cut off when printing Markdown to PDF. Uses `useMaxWidth: true` for responsive SVG scaling to fit page width. |
