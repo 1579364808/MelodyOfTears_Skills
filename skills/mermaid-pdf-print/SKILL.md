@@ -1,14 +1,25 @@
 ---
 name: mermaid-pdf-print
 description: >
-  Fixes Mermaid diagrams being too wide and truncated/cut off when printing Markdown to PDF.
-  When user encounters overflowing mermaid diagrams, or asks "Mermaid 被截断"、"PDF 打印不全"、
-  "Mermaid 太大"、"自适应宽度"等问题时触发。
-  Provides solutions using mermaid init config, useMaxWidth responsive SVG, actor name simplification,
-  and diagram splitting strategies to ensure diagrams fit page width without content loss.
+  当用户提到 Mermaid 图表需要适应页面大小、自适应宽度/高度、打印 PDF 被截断/显示不全时触发。
+  用户可能会说"Mermaid 自适应"、"PDF 打印被截断"、"Mermaid 太大了"、"Mermaid 被裁了"、
+  "图超出页面"、"打印不全"等内容。
+  提供 useMaxWidth 配置、响应式 SVG 缩放、参与者名称简化、拆分大图等方案。
 ---
 
 # Mermaid 图表 PDF 打印适配 Skill
+
+## 何时触发
+
+用户提到 Mermaid 图需要**自适应页面大小**、**打印被截断**、**显示不全**时触发。
+
+典型触发场景：
+- "Mermaid 自适应页面宽度/大小"
+- "PDF 打印出来被截断了"
+- "Mermaid 太大了，怎么缩小"
+- "图超出页面了"
+- "打印不全，右边被裁了"
+- "Mermaid 怎么适配 A4 纸"
 
 ## 背景
 
