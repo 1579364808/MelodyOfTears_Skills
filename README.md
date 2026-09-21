@@ -13,3 +13,4 @@ OpenCode AI agent skills collection.
 | **markdown-nested-fence** | Prevents markdown syntax errors caused by nested fenced code blocks with same-length backtick fences. Teaches fence length increment, tilde fences, indented blocks, and HTML entity encoding. |
 | **upload-markdown-to-lark** | Uploads markdown files and content to Lark (Feishu) cloud documents via lark-cli |
 | **benchmark-survey** | Conducts benchmark surveys and performance evaluations |
+| **converting-anki-notes-to-quizify-markdown** | Migrates Anki decks to the Quizify Markdown note type in place, preserving review scheduling. Converts rich-text HTML or Obsidian Markdown to Quizify Markdown, escapes code for the rich-text editor, and verifies fields and scheduling byte-for-byte. |
