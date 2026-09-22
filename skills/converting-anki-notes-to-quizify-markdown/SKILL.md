@@ -75,6 +75,48 @@ All in `scripts/`, runnable with plain Node 22+ (needs `npm i turndown turndown-
 - [ ] Front images resolve to files that exist in `collection.media/`
 - [ ] A card renders correctly in the Reviewer (code shows `<Integer>`, not `&lt;`)
 
+## Verifying the render (bytes are not enough)
+
+Byte comparison proves what you *stored*, not what *renders*. To check the render, read the card
+itself — `present_card` is read-only (only `rate_card` touches scheduling):
+
+```js
+await mcpCall('present_card', { card_id, show_answer: true }); // -> { card: { answer, question, ... } }
+```
+
+Three things bite here:
+
+- **The returned `answer` HTML contains the markdown *source***, inside a `data-qz` region. `:::`
+  and `$...$` stay raw because folding and KaTeX run client-side in `_quizify.js`. A missing
+  `<details>` is therefore **not** evidence of breakage.
+- **The only escaping assertion worth making** is single vs double encoding. Correct:
+  `List&lt;int[]&gt;`. Broken (entities leaked into the visible text): `List&amp;lt;int[]&amp;gt;`.
+- **Run a control.** Present an untouched card from the same deck and diff the properties you care
+  about. That separates "my change broke it" from "the addon behaves this way for every card" —
+  which is all the missing `<details>` turned out to be.
+
+## Editing an existing note later
+
+Stored fields are **already escaped**. Splice; do not re-escape. Keep the existing head verbatim,
+run `escapeForAnki()` only on the newly written text, then concatenate — escaping the whole document
+again turns `&lt;` into `&amp;lt;` and the card visibly breaks.
+
+```js
+await mcpCall('update_notes', { notes: [{ id, fields: { Back: newBack } }] });
+```
+
+A field write does not touch scheduling: `type`/`queue`/`ivl`/`factor`/`reps`/`lapses` are left
+alone and no `revlog` row is added. Confirm read-only against `<profile>/collection.anki2` (copy it
+first — Anki holds a lock):
+
+```sql
+SELECT id, nid, type, queue, due, ivl, factor, reps, lapses FROM cards WHERE nid = ?;
+SELECT id, ease, ivl, lastIvl, type FROM revlog WHERE cid = ? ORDER BY id DESC LIMIT 5;
+```
+
+Before concluding a card was reset, check the `revlog` timestamps: a card sitting in relearning
+(`type=3`, `queue=1`) is usually *the user's own* recent "Again" press, not your edit.
+
 ## Actual effect (example)
 
 A 98-note LeetCode deck of `Basic` cards with hljs-highlighted HTML backs (1.48MB) → 98 `Quizify Markdown` notes (374KB), 33 review cards kept their exact intervals, 486 code blocks converted, 96 problem-page screenshots attached to fronts, 0 cards lost.
